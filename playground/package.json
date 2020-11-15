@@ -1,0 +1,17 @@
+{
+  "name": "twitt-stream-er",
+  "version": "1.0.0",
+  "description": "",
+  "main": "backend.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "needle": "^2.5.2",
+    "twit": "^2.2.11"
+  }
+}
