@@ -2,8 +2,9 @@ import React from "react";
 import mapboxgl from "mapbox-gl";
 import style from "./style.scss";
 import TweetBird from "../tweet/bird";
+import keys from "../../../../keys/keys";
 
-mapboxgl.accessToken = process.env.MAPBOX_TOKEN;
+mapboxgl.accessToken = keys.MAPBOX_TOKEN;
 
 class TweetLiveMap extends React.Component {
   componentDidMount() {

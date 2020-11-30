@@ -4,8 +4,8 @@ const fs = require("fs");
 
 const tweetFormatter = require("../helpers/tweet_formatter");
 const DbTweetManager = require("./db_tweet_manager");
-
 const dbTweetManager = new DbTweetManager();
+const keys = require("../../keys/keys");
 
 module.exports = (io) => {
   // tweetSimulator(io);
