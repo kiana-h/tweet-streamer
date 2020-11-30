@@ -67,5 +67,5 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx", "*"],
   },
-  plugins: [new Dotenv({ path: path.join(__dirname, "../backend/.env") })],
+  plugins: [new Dotenv({ path: path.join(__dirname, "../.env") })],
 };
