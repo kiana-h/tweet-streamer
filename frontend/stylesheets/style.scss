@@ -1,0 +1,26 @@
+// $tweetColor: #1ea1f1;
+
+$tweetColor: #505050;
+body {
+  margin: 0;
+}
+.app-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+:global(.mapboxgl-popup) {
+  max-width: 600px;
+  overflow: hidden;
+  color: $tweetColor;
+  padding: 5px;
+  font: 12px/20px "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+a {
+  text-decoration: none;
+  color: $tweetColor;
+}

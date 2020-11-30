@@ -1,0 +1,33 @@
+{
+  "name": "socker",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node --inspect ./bin/www"
+  },
+  "dependencies": {
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "ml-sentiment": "^2.0.7",
+    "morgan": "~1.9.1",
+    "natural": "^2.1.5",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "pug": "2.0.0-beta11",
+    "sentiment": "^5.0.2",
+    "sentiment-french": "^1.0.2",
+    "sentiment-polish": "^1.0.0",
+    "sentiment-ptbr": "^1.0.3",
+    "sentiment-spanish": "^0.0.8",
+    "sentiment-swedish": "^1.1.0",
+    "sentiment-turkish": "^1.0.1",
+    "sentiment-zh_cn": "^2.0.3",
+    "sequelize": "^6.3.5",
+    "socket.io": "^3.0.1",
+    "twit": "^2.2.11",
+    "umzug": "^2.3.0",
+    "wink-sentiment": "^5.0.2"
+  }
+}

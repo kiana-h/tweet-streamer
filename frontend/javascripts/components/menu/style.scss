@@ -1,0 +1,30 @@
+.menu {
+  z-index: 10000;
+}
+
+.menuButton {
+  color: #505050;
+}
+
+.icon {
+  margin-right: 20px;
+}
+
+.menuItem:hover {
+  cursor: pointer;
+}
+
+.menuContainer {
+  position: absolute;
+  z-index: 1000;
+  top: 30px;
+  left: 30px;
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+}
+
+.info {
+  max-width: 300px;
+  height: auto;
+}

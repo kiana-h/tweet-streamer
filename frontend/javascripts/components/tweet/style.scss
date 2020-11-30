@@ -1,0 +1,35 @@
+// $tweetColor: #1ea1f1;
+$tweetColor: #a19ea8;
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.positive {
+  background-color: #21d1ad;
+  color: #21d1ad;
+}
+
+.negative {
+  background-color: #fe9e9f;
+  color: #fe9e9f;
+}
+
+.neutral {
+  background-color: #f9de83;
+  color: #f9de83;
+}
+
+.notAvailable {
+  background-color: #b0aba6;
+  color: #b0aba6;
+}
+
+.nest {
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0.5;
+}
