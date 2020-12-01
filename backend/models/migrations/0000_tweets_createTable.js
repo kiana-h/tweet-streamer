@@ -1,38 +1,33 @@
 const Sequelize = require("sequelize");
-const tweetDef = {
-  attributes: {
-    id: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    createdAt: {
-      type: Sequelize.DATE,
-    },
-    text: {
-      type: Sequelize.TEXT,
-    },
-    hashtag: {
-      type: Sequelize.STRING,
-    },
-    sentiment: {
-      type: Sequelize.INTEGER,
-    },
-    lang: {
-      type: Sequelize.STRING,
-    },
-    location: {
-      type: Sequelize.GEOMETRY,
-    },
+const attributes = {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
   },
-  options: { updatedAt: false },
+  createdAt: {
+    type: Sequelize.DATE,
+  },
+  text: {
+    type: Sequelize.TEXT,
+  },
+  hashtag: {
+    type: Sequelize.STRING,
+  },
+  sentiment: {
+    type: Sequelize.INTEGER,
+  },
+  lang: {
+    type: Sequelize.STRING,
+  },
+  location: {
+    type: Sequelize.GEOMETRY,
+  },
 };
-
-const Tweet = sequelize.define("Tweet", tweetDef.attributes, tweetDef.options);
 
 module.exports = {
   async up(queryInterface, sequelize, Sequelize) {
-    await Tweet.sync({ force: true });
+    queryInterface.createTable("tweets", attributes);
   },
   async down(queryInterface, sequelize, Sequelize) {},
 };
