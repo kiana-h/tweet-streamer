@@ -106,4 +106,4 @@ dist
 .DS_Store
 playground
 
-keys
+keys_dev.js

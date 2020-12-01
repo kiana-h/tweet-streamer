@@ -6,9 +6,9 @@ import * as ApiUtil from "../../util/tweet_api_util";
 import Nest from "../tweet/nest";
 import HistorySlider from "./history_slider";
 import style from "./style.scss";
-// import keys from "../../../../keys/keys";
+import keys from "../../../keys/keys";
 
-mapboxgl.accessToken = `${process.env.MAPBOX_TOKEN}`;
+mapboxgl.accessToken = keys.MAPBOX_TOKEN;
 
 class TweetHistoryMap extends React.Component {
   constructor(props) {
