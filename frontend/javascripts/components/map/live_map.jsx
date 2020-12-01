@@ -2,7 +2,7 @@ import React from "react";
 import mapboxgl from "mapbox-gl";
 import style from "./style.scss";
 import TweetBird from "../tweet/bird";
-import keys from "../../../../keys/keys";
+import keys from "../../../keys/keys";
 
 mapboxgl.accessToken = keys.MAPBOX_TOKEN;
 
