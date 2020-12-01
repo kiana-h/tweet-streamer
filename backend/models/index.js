@@ -1,13 +1,13 @@
 const Sequelize = require("sequelize");
 const migrations = require("./migrations");
-let 
+
 if (process.env.HEROKU_POSTGRESQL_BLACK_URL) {
   const sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_BLACK_URL, {
     dialect: "postgres",
     protocol: "postgres",
     port: match[4],
     host: match[3],
-    logging: true, 
+    logging: true,
   });
 } else {
   const sequelize = new Sequelize("tweet_stream_er", "kiana", "172125kia", {
