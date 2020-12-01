@@ -1,15 +1,26 @@
 const Sequelize = require("sequelize");
 const migrations = require("./migrations");
-const sequelize = new Sequelize("tweet_stream_er", "kiana", "172125kia", {
-  host: "localhost",
-  dialect: "postgres",
-  logging: null,
-  pool: {
-    max: 5,
-    min: 0,
-    idle: 10000,
-  },
-});
+let 
+if (process.env.HEROKU_POSTGRESQL_BLACK_URL) {
+  const sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_BLACK_URL, {
+    dialect: "postgres",
+    protocol: "postgres",
+    port: match[4],
+    host: match[3],
+    logging: true, 
+  });
+} else {
+  const sequelize = new Sequelize("tweet_stream_er", "kiana", "172125kia", {
+    host: "localhost",
+    dialect: "postgres",
+    logging: null,
+    pool: {
+      max: 5,
+      min: 0,
+      idle: 10000,
+    },
+  });
+}
 exports.sequelize = sequelize;
 
 exports.initialize = async function () {
