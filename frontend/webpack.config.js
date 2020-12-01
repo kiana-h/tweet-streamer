@@ -66,4 +66,10 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx", "*"],
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      MAPBOX_TOKEN: JSON.stringify(process.env.MAPBOX_TOKEN),
+    }),
+  ],
 };
