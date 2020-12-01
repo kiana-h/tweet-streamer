@@ -17,7 +17,7 @@ exports.initialize = async function () {
     await sequelize.authenticate();
     console.log("Connection has been established successfully.");
   } catch (e) {
-    console.log("Unable to connect to the database:", err);
+    console.log("Unable to connect to the database:", e);
   }
 
   await migrations(sequelize, Sequelize);
