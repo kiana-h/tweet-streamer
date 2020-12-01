@@ -8,7 +8,7 @@ import HistorySlider from "./history_slider";
 import style from "./style.scss";
 // import keys from "../../../../keys/keys";
 
-mapboxgl.accessToken = process.env.MAPBOX_TOKEN;
+mapboxgl.accessToken = `${process.env.MAPBOX_TOKEN}`;
 
 class TweetHistoryMap extends React.Component {
   constructor(props) {
