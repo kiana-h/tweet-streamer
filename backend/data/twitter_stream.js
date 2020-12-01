@@ -11,10 +11,10 @@ module.exports = (io) => {
   // tweetSimulator(io);
   // return;
   const T = new Twit({
-    consumer_key: keys.TWITTER_CONSUMER_KEY,
-    consumer_secret: keys.TWITTER_CONSUMER_SECRET,
-    access_token: keys.TWITTER_AUTH_KEY,
-    access_token_secret: keys.TWITTER_AUTH_SECRET,
+    consumer_key: process.env.TWITTER_CONSUMER_KEY,
+    consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+    access_token: process.env.TWITTER_AUTH_KEY,
+    access_token_secret: process.env.TWITTER_AUTH_SECRET,
     timeout_ms: 60 * 1000, // optional HTTP request timeout to apply to all requests.
     strictSSL: true, // optional - requires SSL certificates to be valid.
   });

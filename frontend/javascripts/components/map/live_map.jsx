@@ -4,7 +4,7 @@ import style from "./style.scss";
 import TweetBird from "../tweet/bird";
 // import keys from "../../../../keys/keys";
 
-mapboxgl.accessToken = keys.MAPBOX_TOKEN;
+mapboxgl.accessToken = process.env.MAPBOX_TOKEN;
 
 class TweetLiveMap extends React.Component {
   componentDidMount() {
