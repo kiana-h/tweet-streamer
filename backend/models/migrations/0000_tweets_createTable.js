@@ -1,3 +1,4 @@
+const Sequelize = require("sequelize");
 const tweetDef = {
   attributes: {
     id: {
