@@ -6,6 +6,7 @@ const logger = require("morgan");
 // const sassMiddleware = require("node-sass-middleware");
 const socket_io = require("socket.io");
 const models = require("./models");
+require("./data/db_cron");
 
 const indexRouter = require("./controllers/routes/index");
 
