@@ -13,7 +13,6 @@ class DbTweetManager {
         await this.insertTweets();
       } catch (err) {
         console.log(err);
-        process.exit(1);
       }
     }
   }
@@ -21,7 +20,7 @@ class DbTweetManager {
   async insertTweets() {
     const tweetsToCreate = [...this.tweetQueue];
     this.clearTweets();
-    // await models.Tweet.bulkCreate(tweetsToCreate);
+    await models.Tweet.bulkCreate(tweetsToCreate);
   }
 
   clearTweets() {

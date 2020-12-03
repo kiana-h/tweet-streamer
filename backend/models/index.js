@@ -32,7 +32,7 @@ exports.initialize = async function () {
 
   await migrations(sequelize, Sequelize);
 
-  const models = ["tweet"];
+  const models = ["tweet", "aggregate"];
 
   for (const modelName of models) {
     const modelDefinition = require(`./definitions/${modelName}`);
