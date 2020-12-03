@@ -48,12 +48,12 @@ export default class BirdNest {
     dot.id = `nest-${i}`;
 
     let className;
-    if (nest.average_sentiment > 0) {
-      className = `${style["dot"]} ${style["positive"]}`;
-    } else if (nest.average_sentiment < 0) {
-      className = `${style["dot"]} ${style["negative"]}`;
+    if (nest.sentimentScore > 0) {
+      className = `${style["nest"]} ${style["positive"]}`;
+    } else if (nest.sentimentScore < 0) {
+      className = `${style["nest"]} ${style["negative"]}`;
     } else {
-      className = `${style["dot"]} ${style["neutral"]}`;
+      className = `${style["nest"]} ${style["neutral"]}`;
     }
 
     dot.className = className;
@@ -61,22 +61,13 @@ export default class BirdNest {
     const dotMarker = new mapboxgl.Marker(dot)
       .setLngLat(nest.location.coordinates)
       .addTo(this.map);
-    // let popup;
-    // if (nest.hashtag.length) {
-    //   popup = new mapboxgl.Popup({
-    //     offset: 5,
-    //     closeButton: false,
-    //     // closeOnClick: false,
-    //   }).setText(`#${tweet.hashtag}`);
 
-    //   dotMarker.setPopup(popup).togglePopup();
-    // }
     this.setSize(dot.id, nest.count);
     this.markers.push(dotMarker);
 
     const markerInfo = `Count: ${nest.count} , Sentiment Score: ${
-      typeof parseFloat(nest.average_sentiment) === "number"
-        ? parseFloat(nest.average_sentiment).toFixed(2)
+      typeof parseFloat(nest.sentimentScore) === "number"
+        ? parseFloat(nest.sentimentScore).toFixed(2)
         : 0.0
     }`;
 
@@ -93,8 +84,5 @@ export default class BirdNest {
       (parseInt((count / this.avg_count).toFixed()) + 5).toString() + "px";
     document.getElementById(id).style.width = weight;
     document.getElementById(id).style.height = weight;
-    // document.getElementById(id).setAttribute("style", `width:${weight}`);
-
-    // document.getElementById(id).setAttribute("style", `height:${weight}`);
   }
 }

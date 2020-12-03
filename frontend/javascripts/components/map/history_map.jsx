@@ -24,9 +24,9 @@ class TweetHistoryMap extends React.Component {
   getMarks = () => {
     const dateMarks = {};
     let currentDateTime = new Date();
-    currentDateTime.setHours(currentDateTime.getHours() + 1);
+    currentDateTime.setHours(currentDateTime.getHours());
     currentDateTime.setMinutes(0, 0, 0);
-    for (let i = 0; i < 168; i++) {
+    for (let i = 168; i >= 0; i--) {
       dateMarks[i] = currentDateTime;
       let oneHourBefore = new Date(currentDateTime);
       oneHourBefore.setHours(oneHourBefore.getHours() - 1);
@@ -46,15 +46,14 @@ class TweetHistoryMap extends React.Component {
       interactive: false,
     });
     this.map.on("load", () => {
-      //   const dateTime = new Date().toISOString();
       this.getMarks();
       this.toggleLoading();
-      this.getTweets(this.state.marks[0].toISOString());
+      this.getTweets(this.state.marks[168].toISOString());
     });
   }
 
   getTweets = async (dateTime) => {
-    const tweets = await (await ApiUtil.getTweetsByDateTime(dateTime)).json();
+    const tweets = await ApiUtil.getTweetsByDateTime(dateTime);
     if (this.nestManager) {
       this.nestManager.clear();
       this.nestManager.setNests(tweets);

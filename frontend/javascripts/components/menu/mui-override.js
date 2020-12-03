@@ -1,10 +1,17 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme) => ({
   menuButton: {
+    backgroundColor: "black",
+    width: "40px",
+    height: "40px",
+    borderRadius: "50%",
+    color: "rgba(210,210,210)",
+    marginBottom: "20px",
     "&:hover": {
       backgroundColor: "transparent",
-      color: "#4052b5",
+      color: "black",
+      border: "1px solid black",
     },
   },
   infoMenu: {
@@ -15,4 +22,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default useStyles;
+export const tooltipStyles = makeStyles((theme) => ({
+  tooltip: {
+    backgroundColor: "black",
+    fontSize: 15,
+  },
+  arrow: {
+    // opacity: 1,
+    color: "black",
+  },
+}));
