@@ -47,7 +47,7 @@ class TweetHistoryMap extends React.Component {
     });
     this.map.on("load", () => {
       this.getMarks();
-      this.toggleLoading();
+      // this.toggleLoading();
       this.getTweets(this.state.marks[168].toISOString());
     });
   }
@@ -61,23 +61,24 @@ class TweetHistoryMap extends React.Component {
       this.nestManager = new Nest({
         map: this.map,
         nests: tweets,
-        toggleLoading: this.toggleLoading,
+        // toggleLoading: this.toggleLoading,
       });
     }
   };
 
-  toggleLoading = () => {
-    const loading = this.state.loading;
-    this.setState({ loading: !loading });
-  };
+  // toggleLoading = () => {
+  //   const loading = this.state.loading;
+  //   this.setState({ loading: !loading });
+  // };
 
   componentWillUnmount() {
+    this.nestManager.clear();
     this.map.remove();
   }
 
   updateDateTime = (newValue) => {
     const dateTime = this.state.marks[newValue].toISOString();
-    this.toggleLoading();
+    // this.toggleLoading();
     this.setState({ dateTime });
     this.getTweets(dateTime);
   };

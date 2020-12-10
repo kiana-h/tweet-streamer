@@ -104,20 +104,18 @@ export default function MainMenu() {
         </Tooltip>
       </Link>
 
-      <Link to="">
-        <Tooltip
-          title={location.pathname === "/history" ? historyText() : liveText()}
-          arrow
-          placement="left-start"
-          classes={tooltipClasses}
-        >
-          <IconButton className={classes.menuButton}>
-            <InfoIcon />
-          </IconButton>
-        </Tooltip>
-      </Link>
+      <Tooltip
+        title={location.pathname === "/history" ? historyText() : liveText()}
+        arrow
+        placement="left-start"
+        classes={tooltipClasses}
+      >
+        <IconButton className={classes.menuButton}>
+          <InfoIcon />
+        </IconButton>
+      </Tooltip>
 
-      <Link to="">
+      <a target="_blank" href="https://github.com/kiana-h/twitt-stream-er">
         <Tooltip
           title="Find Out More on Github!"
           arrow
@@ -128,7 +126,7 @@ export default function MainMenu() {
             <GitHubIcon />
           </IconButton>
         </Tooltip>
-      </Link>
+      </a>
 
       {/* <Button
         className={classes.menuButton}

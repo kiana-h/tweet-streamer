@@ -6,7 +6,7 @@ const tweetFormatter = (tweet) => {
     : "";
 
   let coordinates;
-  if (tweet.place?.bounding_box) {
+  if (tweet.place && tweet.place.bounding_box) {
     coordinates = tweet.place.bounding_box.coordinates[0].reduce(
       (acc, coord) => [acc[0] + coord[0], acc[1] + coord[1]]
     );

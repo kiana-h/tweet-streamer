@@ -2,12 +2,12 @@ import React from "react";
 import style from "./style.scss";
 
 export default class BirdNest {
-  constructor({ map, nests, toggleLoading }) {
+  constructor({ map, nests }) {
     this.map = map;
     this.markers = [];
     this.nests = nests;
     this.avg_count = null;
-    this.toggleLoading = toggleLoading;
+    // this.toggleLoading = toggleLoading;
 
     this.setNests(nests);
   }
@@ -24,7 +24,7 @@ export default class BirdNest {
     for (let i = 0; i < this.nests.length; i++) {
       this.addNest(this.nests[i], i);
     }
-    this.toggleLoading();
+    // this.toggleLoading();
   };
 
   setNests = (nests) => {
