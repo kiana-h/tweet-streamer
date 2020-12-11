@@ -40,7 +40,7 @@ Client-side:
   
 ```
 
-![Live Tweet Map](https://github.com/kiana-h/twitt-stream-er/blob/main/readme_assets/live-map.gif)
+![Live Tweet Map](https://github.com/kiana-h/twitt-stream-er/blob/main/readme_assets/live-map-.gif)
 
 ## Tweet Sentiment Analysis
 
