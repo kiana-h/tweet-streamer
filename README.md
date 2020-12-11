@@ -14,7 +14,31 @@ Each tweet is evaluated using a custom 'sentiment analyzer' that supports 10+ la
 The history map shows an hourly aggregate of the sample stream of tweets over the past week. The tweets have been aggregated based on their location.
 
 ## Live Tweet Map
-The tweets are retrieved from Twitter API's sample stream and processed through twit library. Socket.io has been implemented to support the real-time flow data from the server to clients. The map utilizes a queue to render up to 2000 tweets at a time and remove the old ones once it reaches capacity. A Tweet Manager class is designed to manage the tweet queue as well as rendering markers on the map. 
+The tweets are retrieved from Twitter API's sample stream and processed through twit library. Socket.io has been implemented to support the real-time flow data from the server to clients. The map utilizes a queue to render up to 2000 tweets at a time and remove the old ones once it reaches capacity. A Tweet Manager class is designed to manage the tweet queue as well as rendering markers on the map.
+
+Server-side:
+```js
+  stream.on("tweet", (tweet) => {
+    const formattedTweet = tweetFormatter(tweet);
+    if (formattedTweet) {
+      io.emit("tweet", formattedTweet);
+      dbTweetManager.addTweetToQueue(formattedTweet);
+    }
+  });
+
+```
+Client-side:
+```
+  startListening = () => {
+    this.socket.on("tweet", (tweet) => {
+      this.incomingTweets.push(tweet);
+      while (this.incomingTweets.length) {
+        this.addTweet(this.incomingTweets.pop());
+      }
+    });
+  };
+  
+```
 
 ![Live Tweet Map](https://github.com/kiana-h/twitt-stream-er/blob/main/readme_assets/live-map.gif)
 
