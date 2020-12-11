@@ -35,27 +35,3 @@ module.exports = (io) => {
     }
   });
 };
-
-// function tweetSimulator(io) {
-//   const AVERAGE_TWEETS_PER_SECOND = 5;
-//   const tweets = JSON.parse(
-//     fs.readFileSync(path.join(__dirname, "testData.json"))
-//   );
-//   getNextTweet(io, tweets, AVERAGE_TWEETS_PER_SECOND);
-// }
-
-// function getNextTweet(io, tweets, tweetsPerSecond) {
-//   const tweet = tweets[Math.floor(Math.random() * tweets.length)];
-
-//   const formattedTweet = tweetFormatter(tweet);
-
-//   if (formattedTweet) {
-//     io.emit("tweet", formattedTweet);
-//     dbTweetManager.addTweetToQueue(formattedTweet);
-//   }
-
-//   setTimeout(
-//     () => getNextTweet(io, tweets, tweetsPerSecond),
-//     (1000 / tweetsPerSecond) * Math.random() * 2
-//   );
-// }
