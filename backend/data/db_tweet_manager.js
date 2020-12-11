@@ -3,16 +3,16 @@ const models = require("../models");
 class DbTweetManager {
   constructor() {
     this.tweetQueue = [];
-    this.maxQueueLenth = 100;
+    this.maxQueueLength = 100;
   }
 
   async addTweetToQueue(tweet) {
     this.tweetQueue.push(tweet);
-    if (this.tweetQueue.length >= this.maxQueueLenth) {
+    if (this.tweetQueue.length >= this.maxQueueLength) {
       try {
         await this.insertTweets();
       } catch (err) {
-        console.log(err);
+        console.log;
       }
     }
   }
