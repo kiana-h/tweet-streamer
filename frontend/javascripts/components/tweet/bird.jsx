@@ -31,7 +31,7 @@ export default class TweetBird {
     this.markers.forEach((marker, i) => {
       marker.remove();
     });
-    this.incomingTweets = queue.create(this.maxIncomingTweetLength);
+    this.incomingTweets = [];
     this.markers = [];
   };
 
