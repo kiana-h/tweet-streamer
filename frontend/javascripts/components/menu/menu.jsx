@@ -47,8 +47,7 @@ export default function MainMenu() {
     const info = [
       "This map is showing a live stream of about 1% of all tweets worldwide!",
       "The tweets have been filtered to show only those that have their location publicly shared.",
-      'Each tweet has been evaluated using a custom "sentiment analyzer" that supports 10+ languages and emojis!',
-      "The colors shown on the map correspond to the sentiment score.",
+      "Each tweet has been evaluated using a custom 'sentiment analyzer' that supports 10+ languages and emojis! Each tweet's color corresponds to its sentiment score. (green: positive, red: negative, yellow: neutral)",
     ];
 
     return info.map((text, i) => (
@@ -64,7 +63,7 @@ export default function MainMenu() {
     const info = [
       "This map is showing an hourly aggregate of roughly 1% of worldwide tweets over the past week!",
       "The tweets have been aggregated based on their location.",
-      "The size of each point corresponds to the number of tweets at that location, and the color represnts the average sentiment score.",
+      "The size of each point corresponds to the number of tweets at that location (as a percentage of all tweets at that hour), and the color represnts the average sentiment score which ranges from green(positive) to red(negative",
     ];
 
     return info.map((text, i) => (
@@ -103,17 +102,18 @@ export default function MainMenu() {
           </IconButton>
         </Tooltip>
       </Link>
-
-      <Tooltip
-        title={location.pathname === "/history" ? historyText() : liveText()}
-        arrow
-        placement="left-start"
-        classes={tooltipClasses}
-      >
-        <IconButton className={classes.menuButton}>
-          <InfoIcon />
-        </IconButton>
-      </Tooltip>
+      <a href="#">
+        <Tooltip
+          title={location.pathname === "/history" ? historyText() : liveText()}
+          arrow
+          placement="left-start"
+          classes={tooltipClasses}
+        >
+          <IconButton className={classes.menuButton}>
+            <InfoIcon />
+          </IconButton>
+        </Tooltip>
+      </a>
 
       <a target="_blank" href="https://github.com/kiana-h/twitt-stream-er">
         <Tooltip
@@ -127,63 +127,6 @@ export default function MainMenu() {
           </IconButton>
         </Tooltip>
       </a>
-
-      {/* <Button
-        className={classes.menuButton}
-        aria-controls="simple-menu"
-        aria-haspopup="true"
-        onClick={handleInfoClick}
-      >
-        <InfoIcon fontSize="large" />
-      </Button> */}
-
-      {/* <Menu
-        className={style.menu}
-        id="simple-menu"
-        anchorEl={menuAnchor}
-        keepMounted
-        open={Boolean(menuAnchor)}
-        onClose={handleMenuClose}
-      >
-        <MenuItem onClick={handleMenuClose} className={style.menuItem}>
-          <TwitterIcon className={style.icon} />
-          <Link to="/">Live Tweet Map</Link>
-        </MenuItem>
-        <MenuItem onClick={handleMenuClose} className={style.menuItem}>
-          <TimelapseIcon className={style.icon} />
-
-          <Link to="/history">7 Day Tweet History</Link>
-        </MenuItem>
-        <MenuItem onClick={handleMenuClose} className={style.menuItem}>
-          <TimelineIcon className={style.icon} />
-          <Link to="/trending">Trending Topics</Link>
-        </MenuItem>
-      </Menu> */}
-
-      {/* <Button
-        className={classes.menuButton}
-        aria-controls="simple-menu"
-        aria-haspopup="true"
-        onClick={handleInfoClick}
-      >
-        <InfoIcon fontSize="large" />
-      </Button> */}
-
-      {/* <Menu
-        className={classes.infoMenu}
-        id="simple-menu"
-        anchorEl={infoAnchor}
-        keepMounted
-        open={Boolean(infoAnchor)}
-        onClose={handleInfoClose}
-      >
-        <MenuItem>
-        <Typography className={style.info} variant="body2"></Typography>
-        <List onClick={handleInfoClose} className={classes.menuItem}>
-          {infoText()}
-        </List>
-        </MenuItem>
-      </Menu> */}
     </div>
   );
 }
