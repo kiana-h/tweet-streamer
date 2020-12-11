@@ -63,7 +63,8 @@ export default function MainMenu() {
     const info = [
       "This map is showing an hourly aggregate of roughly 1% of worldwide tweets over the past week!",
       "The tweets have been aggregated based on their location.",
-      "The size of each point corresponds to the number of tweets at that location (as a percentage of all tweets at that hour), and the color represnts the average sentiment score which ranges from green(positive) to red(negative",
+      "The size of each point corresponds to the number of tweets at that location (as a percentage of all tweets at that hour).",
+      "The average sentiment score is translated into a color from a gradient, ranging from green(positive) to red(negative)",
     ];
 
     return info.map((text, i) => (
