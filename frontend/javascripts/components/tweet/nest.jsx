@@ -1,5 +1,6 @@
 import React from "react";
 import style from "./style.scss";
+import SentimentColorPicker from "../../util/sentiment_color_picker";
 
 export default class BirdNest {
   constructor({ map, nests }) {
@@ -7,6 +8,7 @@ export default class BirdNest {
     this.markers = [];
     this.nests = nests;
     this.avg_count = null;
+    this.sentimentColorPicker = new SentimentColorPicker({ live: false });
     // this.toggleLoading = toggleLoading;
 
     this.setNests(nests);
@@ -45,24 +47,18 @@ export default class BirdNest {
 
   addNest(nest, i) {
     let dot = document.createElement("div");
-    dot.id = `nest-${i}`;
+    const id = `nest-${i}`;
+    dot.id = id;
 
-    let className;
-    if (nest.sentimentScore > 0) {
-      className = `${style["nest"]} ${style["positive"]}`;
-    } else if (nest.sentimentScore < 0) {
-      className = `${style["nest"]} ${style["negative"]}`;
-    } else {
-      className = `${style["nest"]} ${style["neutral"]}`;
-    }
-
-    dot.className = className;
+    dot.className = style["dot"];
 
     const dotMarker = new mapboxgl.Marker(dot)
       .setLngLat(nest.location.coordinates)
       .addTo(this.map);
 
     this.setSize(dot.id, nest.count);
+    this.setColor(dot.id, nest.sentimentScore);
+
     this.markers.push(dotMarker);
 
     const markerInfo = `Count: ${nest.count} , Sentiment Score: ${
@@ -84,5 +80,11 @@ export default class BirdNest {
       (parseInt((count / this.avg_count).toFixed()) + 5).toString() + "px";
     document.getElementById(id).style.width = weight;
     document.getElementById(id).style.height = weight;
+  }
+
+  setColor(id, sentiment) {
+    const color = this.sentimentColorPicker.getColor(sentiment);
+    document.getElementById(id).style.backgroundColor = color;
+    document.getElementById(id).style.opacity = 0.75;
   }
 }

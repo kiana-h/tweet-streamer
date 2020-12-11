@@ -1,6 +1,4 @@
-import React from "react";
 import io from "socket.io-client";
-import queue from "fixed-size-queue";
 import style from "./style.scss";
 
 export default class TweetBird {
@@ -9,19 +7,17 @@ export default class TweetBird {
     this.socket = io({
       transports: ["websocket"],
     });
-    this.maxMarkerLength = 2000;
-    this.maxIncomingTweetLength = 50;
+    this.maxMarkerCount = 2000;
     this.markers = [];
-    this.incomingTweets = queue.create(this.maxIncomingTweetLength);
+    this.incomingTweets = [];
     this.startListening();
   }
 
   startListening = () => {
     this.socket.on("tweet", (tweet) => {
-      this.incomingTweets.enqueue(tweet);
-      while (this.incomingTweets.getCount()) {
-        let tweetToRender = this.incomingTweets.dequeue();
-        this.addBird(tweetToRender);
+      this.incomingTweets.push(tweet);
+      while (this.incomingTweets.length) {
+        this.addBird(this.incomingTweets.pop());
       }
     });
   };
@@ -35,13 +31,16 @@ export default class TweetBird {
     this.markers.forEach((marker, i) => {
       marker.remove();
     });
-    this.incomingTweets = queue.create(100);
+    this.incomingTweets = queue.create(this.maxIncomingTweetLength);
     this.markers = [];
   };
 
   addBird(tweet) {
+    if (isNaN(tweet.sentiment)) return;
+
     let dot = document.createElement("div");
-    dot.id = `dot-${tweet.twitter_uid}`;
+    let id = `dot-${tweet.twitter_uid}`;
+    dot.id = id;
 
     let className;
     if (tweet.sentiment > 0) {
@@ -50,8 +49,6 @@ export default class TweetBird {
       className = `${style["dot"]} ${style["negative"]}`;
     } else if (tweet.sentiment === 0) {
       className = `${style["dot"]} ${style["neutral"]}`;
-    } else {
-      className = `${style["dot"]} ${style["notAvailable"]}`;
     }
 
     dot.className = className;
@@ -64,7 +61,6 @@ export default class TweetBird {
       popup = new mapboxgl.Popup({
         offset: 5,
         closeButton: false,
-        // closeOnClick: false,
       }).setText(`#${tweet.hashtag}`);
 
       dotMarker.setPopup(popup).togglePopup();
@@ -89,12 +85,12 @@ export default class TweetBird {
 
   checkMarkersLength = () => {
     const length = this.markers.length;
-    if (length > this.maxMarkerLength) {
-      const markersToDelete = length - this.maxMarkerLength;
+    if (length > this.maxMarkerCount) {
+      const markersToDelete = length - this.maxMarkerCount;
       for (let i = 0; i < markersToDelete; i++) {
         this.markers[i].remove();
       }
-      this.markers = this.markers.slice(-this.maxMarkerLength);
+      this.markers = this.markers.slice(-this.maxMarkerCount);
     }
   };
 }
