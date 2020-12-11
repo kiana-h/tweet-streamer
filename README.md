@@ -24,18 +24,28 @@ The tweets are retrieved from Twitter API's sample stream and processed through 
 
 ## 7 Day History Map
 The tweets have been aggregated based on their location using PostGIS. 
-```SQL
-SELECT
-  ST_SnapToGrid(location, 3) AS location,
-  date_trunc('hour', "createdAt") AS time,
-  AVG(sentiment) AS "sentimentScore",
-  COUNT("id") AS count
-FROM tweets
-WHERE
-  "createdAt" >= :dateTime::timestamptz AND "createdAt" < :dateTime::timestamptz + interval '1' hour
-GROUP BY
-  date_trunc('hour', "createdAt"),
-  ST_SnapToGrid(location, 3)
+```js
+const [aggregates] = await models.sequelize.query(
+```sql
+  `
+  SELECT
+    ST_SnapToGrid(location, 3) AS location,
+    date_trunc('hour', "createdAt") AS time,
+    AVG(sentiment) AS "sentimentScore",
+    COUNT("id") AS count
+  FROM tweets
+  WHERE
+    "createdAt" >= :dateTime::timestamptz AND "createdAt" < :dateTime::timestamptz + interval '1' hour
+  GROUP BY
+    date_trunc('hour', "createdAt"),
+    ST_SnapToGrid(location, 3)
+    `
+```,
+  {
+    replacements: { dateTime },
+    logging: console.log,
+  }
+);
 ```
 The size of each point corresponds to the number of tweets at that location (as a percentage of all the tweets at that hour), and the color represnts the average sentiment score which ranges from green(positive) to red(negative
 
