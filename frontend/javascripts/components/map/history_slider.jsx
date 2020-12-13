@@ -54,9 +54,6 @@ const HistorySlider = ({ updateDateTime, marks }) => {
   return (
     <Container className={style.slider}>
       <CssBaseline>
-        {/* <Typography id="discrete-slider-always" gutterBottom>
-          History:
-        </Typography> */}
         <Slider
           ValueLabelComponent={ValueLabelComponent}
           aria-label="custom thumb label"
@@ -66,7 +63,7 @@ const HistorySlider = ({ updateDateTime, marks }) => {
           min={0}
           max={168}
           valueLabelFormat={valueLabelFormat}
-          onChangeCommited={handleChange}
+          onChangeCommitted={handleChange}
           valueLabelDisplay="on"
           classes={sliderClasses}
         />
