@@ -5,7 +5,7 @@ const models = require("../models");
 const MAX_TWEET_DURATION = 1000 * 60 * 60 * 24 * 7; // 1 week in ms
 
 const job = new CronJob(
-  "* 1 * * *",
+  "0 * * * *",
   async () => {
     console.log("Removing old tweets");
     await models.Tweet.destroy({
@@ -22,14 +22,14 @@ const job = new CronJob(
         },
       },
     });
+    console.log("Inserting aggregates");
     console.log("Removing old tweets completed");
     const dateTime = new Date();
     dateTime.setMinutes(0, 0, 0);
-    console.log("Inserting aggregates");
 
     await models.sequelize.query(
       `
-          INSERT INTO aggregates ("createdAt", timestamp, count, "sentimentScore", location)
+        INSERT INTO aggregates ("createdAt", timestamp, count, "sentimentScore", location)
           SELECT
             current_timestamp,
             date_trunc('hour', "createdAt"),
