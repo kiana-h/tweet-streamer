@@ -20,9 +20,9 @@ export const getTweetsByDateTime = async (dateTime) => {
     // referrerPolicy: "no-referrer",
   });
   const json = await result.json();
-  // if (new Date(dateTime) <= new Date().setMinutes(0, 0, 0)) {
-  //   cache.set(dateTime, json);
-  // }
+  if (new Date(dateTime) <= new Date().setMinutes(0, 0, 0)) {
+    cache.set(dateTime, json);
+  }
 
   return json;
 };
