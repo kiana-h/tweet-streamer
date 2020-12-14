@@ -7,8 +7,6 @@ const DbTweetManager = require("./db_tweet_manager");
 const dbTweetManager = new DbTweetManager();
 
 module.exports = (io) => {
-  // tweetSimulator(io);
-  // return;
   const T = new Twit({
     consumer_key: process.env.TWITTER_CONSUMER_KEY,
     consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
@@ -25,7 +23,7 @@ module.exports = (io) => {
     locations: world,
   });
 
-  // const stream = T.stream("statuses/filter", { track: "trump" });
+  // const stream = T.stream("statuses/filter", { track: "covid" });
 
   stream.on("tweet", (tweet) => {
     const formattedTweet = tweetFormatter(tweet);

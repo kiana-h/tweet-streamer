@@ -63,7 +63,7 @@ const HistorySlider = ({ updateDateTime, marks }) => {
           min={0}
           max={168}
           valueLabelFormat={valueLabelFormat}
-          onChangeCommitted={handleChange}
+          onChange={handleChange}
           valueLabelDisplay="on"
           classes={sliderClasses}
         />

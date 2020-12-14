@@ -8,17 +8,7 @@ export const getTweetsByDateTime = async (dateTime) => {
   ) {
     return cache.get(dateTime);
   }
-  const result = await fetch(`/tweets/${dateTime}`, {
-    // method: "GET",
-    // mode: "cors",
-    // cache: "no-cache",
-    // credentials: "same-origin",
-    // headers: {
-    //   "Content-Type": "application/json",
-    // },
-    // redirect: "follow",
-    // referrerPolicy: "no-referrer",
-  });
+  const result = await fetch(`/tweets/${dateTime}`);
   const json = await result.json();
   if (new Date(dateTime) <= new Date().setMinutes(0, 0, 0)) {
     cache.set(dateTime, json);
