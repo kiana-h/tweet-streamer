@@ -1,6 +1,6 @@
 # Tweet Streamer
 
-Live Website: http://twitt-stream-er.com
+Live Website: [tweetstreamer.com](https://www.tweetstreamer.com/)
 
 ## Features
 
