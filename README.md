@@ -8,7 +8,7 @@ Live Website: [tweetstreamer.com](https://www.tweetstreamer.com/)
 The live tweet map shows a live stream of about 1% of all tweets worldwide. The tweets have been filtered to show only those that have their location publicly shared. 
 
 2. **Tweet Sentiment Analysis:** 
-Each tweet is evaluated using a custom 'sentiment analyzer' that supports 10+ languages and emojis! The analyzer provides a score for each tweet that translates into a corresponding color on the map.
+Each tweet is evaluated using a custom 'sentiment analyzer' that supports 10 languages and emojis! The analyzer provides a score for each tweet that translates into a corresponding color on the map.
 
 3. **7 Day History Map:** 
 The history map shows an hourly aggregate of the sample stream of tweets over the past week. The tweets have been aggregated based on their location.
@@ -44,10 +44,34 @@ Client-side:
 
 ## Tweet Sentiment Analysis
 
-![Tweet Sentiment Analysis](https://github.com/kiana-h/twitt-stream-er/blob/main/readme_assets/tweet-analysis.png)
+The sentiment analyzer currently supports: English, Spanish, Italian, Turkish, Dutch, Polish, French, Portuguese, Swedish, and Emojis! 
+I will be adding more libraries as I find them. 
+
+```js
+  if (lang === "en") {
+    const sentiment = new Sentiment();
+    const result = sentiment.analyze(text);
+    return result.score;
+  } else if (lang === "es") {
+    const result = SentimentSpanish(text);
+    return isNaN(result.score) ? null : result.score;
+  }
+  // ...
+  else if (lang === "nl") {
+    const analyzer = new NaturalAnalyzer("Dutch", stemmer, "pattern");
+    const textArray = text.split(" ");
+    return analyzer.getSentiment(textArray);
+  } else {
+    const result = EmojiSentiment(text);
+    return isNaN(result.score) ? null : result.score;
+  }  
+```
+ 
+ The score is then translated into a color on the live and history maps (green = positive - red = negative). 
 
 ## 7 Day History Map
-Tweets from the past week are saved on a PostgreSQL database. Tweets are added to a queue and bulk inserted at intervals to minimize number of options posts. A cron job is run every hour to delete tweets that are older than a week. Additionally, to enhance performance, an hourly summary of the tweets for each point on the grid is saved in a separate table. The location-based aggregation is implemented using PostGIS.  
+Tweets from the past week are saved on a PostgreSQL database. Tweets are added to a queue and bulk inserted at intervals to minimize number of options posts. A cron job is run every hour to delete tweets that are older than a week. Additionally, to enhance performance, an hourly summary of the tweets for each point on the grid is saved in a separate table. The location-based aggregation is implemented using PostGIS. 
+
 ```js
 const [aggregates] = await models.sequelize.query(
   `
