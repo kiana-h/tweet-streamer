@@ -28,7 +28,7 @@ Server-side:
 
 ```
 Client-side:
-```
+```js
   startListening = () => {
     this.socket.on("tweet", (tweet) => {
       this.incomingTweets.push(tweet);
