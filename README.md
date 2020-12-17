@@ -48,23 +48,47 @@ The sentiment analyzer currently supports: English, Spanish, Italian, Turkish, D
 I will be adding more libraries as I find them. 
 
 ```js
-  if (lang === "en") {
-    const sentiment = new Sentiment();
-    const result = sentiment.analyze(text);
-    return result.score;
-  } else if (lang === "es") {
-    const result = SentimentSpanish(text);
-    return isNaN(result.score) ? null : result.score;
+const getSentimentScore = (text, lang) => {
+  let result = {};
+  switch (lang) {
+    case "en":
+      const sentiment = new SentimentEnglish();
+      result = sentiment.analyze(text);
+      break;
+    case "es":
+      result = SentimentSpanish(text);
+      break;
+    case "tr":
+      result = SentimentTurkish(text);
+      break;
+    case "fr":
+      result = SentimentFrench(text);
+      break;
+    case "pt":
+      SentimentPortuguese(text);
+      break;
+    case "sv":
+      result = SentimentSwedish(text);
+      break;
+    case "pl":
+      result = SentimentPolish(text);
+      break;
+    case "it":
+      const analyzer = new NaturalAnalyzer("Italian", stemmer, "pattern");
+      const textArray = text.split(" ");
+      result.score = analyzer.getSentiment(textArray);
+      break;
+    case "nl":
+      const analyzer = new NaturalAnalyzer("Dutch", stemmer, "pattern");
+      const textArray = text.split(" ");
+      result.score = analyzer.getSentiment(textArray);
+      break;
+    default:
+      result = EmojiSentiment(text);
   }
-  // ...
-  else if (lang === "nl") {
-    const analyzer = new NaturalAnalyzer("Dutch", stemmer, "pattern");
-    const textArray = text.split(" ");
-    return analyzer.getSentiment(textArray);
-  } else {
-    const result = EmojiSentiment(text);
-    return isNaN(result.score) ? null : result.score;
-  }  
+  return isNaN(result.score) ? null : result.score;
+};
+  
 ```
  
  The score is then translated into a color on the live and history maps (green = positive - red = negative). 
