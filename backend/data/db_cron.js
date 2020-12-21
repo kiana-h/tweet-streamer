@@ -2,7 +2,8 @@ const CronJob = require("cron").CronJob;
 const Sequelize = require("sequelize");
 const models = require("../models");
 
-const MAX_TWEET_DURATION = 1000 * 60 * 60 * 24 * 3; // 3 days in ms
+const MAX_TWEET_DURATION = 1000 * 60 * 60 * 24 * 1; // 3 days in ms
+const MAX_AGGREGATE_DURATION = 1000 * 60 * 60 * 24 * 7; // 7 days in ms
 
 const job = new CronJob(
   "0 * * * *",
@@ -18,7 +19,7 @@ const job = new CronJob(
     await models.Aggregate.destroy({
       where: {
         createdAt: {
-          [Sequelize.Op.lt]: Date.now() - MAX_TWEET_DURATION,
+          [Sequelize.Op.lt]: Date.now() - MAX_AGGREGATE_DURATION,
         },
       },
     });
