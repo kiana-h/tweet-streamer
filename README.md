@@ -16,7 +16,7 @@ The history map shows an hourly aggregate of the sample stream of tweets over th
 ## Live Tweet Map
 The tweets are retrieved from Twitter API's sample stream and processed through twit library. Socket.io has been implemented to support the real-time flow of data from the server to clients. The map utilizes a queue to render up to 2000 tweets at a time and remove the old ones once it reaches capacity. A Tweet Manager class is designed to manage the tweet queue as well as rendering markers on the map.
 
-Server-side:
+Server:
 ```js
   stream.on("tweet", (tweet) => {
     const formattedTweet = tweetFormatter(tweet);
@@ -27,14 +27,11 @@ Server-side:
   });
 
 ```
-Client-side:
+Client:
 ```js
   startListening = () => {
-    this.socket.on("tweet", (tweet) => {
-      this.incomingTweets.push(tweet);
-      while (this.incomingTweets.length) {
-        this.addTweet(this.incomingTweets.pop());
-      }
+    this.socket.on("tweet", (tweet) => {  
+        this.addTweet(tweet);
     });
   };
   
