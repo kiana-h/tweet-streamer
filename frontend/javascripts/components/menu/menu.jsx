@@ -45,9 +45,9 @@ export default function MainMenu() {
 
   const liveText = () => {
     const info = [
-      "This map is showing a live stream of about 1% of all tweets worldwide!",
+      "This map is showing a live stream of about 1% of all tweets worldwide! (~5 million tweets a day)",
       "The tweets have been filtered to show only those that have their location publicly shared.",
-      "Each tweet has been evaluated using a custom 'sentiment analyzer' that supports 10+ languages and emojis! Each tweet's color corresponds to its sentiment score. (green: positive, red: negative, yellow: neutral)",
+      "Each tweet has been evaluated using a custom 'sentiment analyzer' that supports 10 languages and emojis! Each tweet's color corresponds to its sentiment score. (green: positive, red: negative, yellow: neutral)",
     ];
 
     return info.map((text, i) => (
