@@ -2,7 +2,7 @@ const CronJob = require("cron").CronJob;
 const Sequelize = require("sequelize");
 const models = require("../models");
 
-const MAX_TWEET_DURATION = 1000 * 60 * 60 * 24 * 7; // 1 week in ms
+const MAX_TWEET_DURATION = 1000 * 60 * 60 * 24 * 3; // 3 days in ms
 
 const job = new CronJob(
   "0 * * * *",
