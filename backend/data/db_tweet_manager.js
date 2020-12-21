@@ -11,8 +11,9 @@ class DbTweetManager {
     if (this.tweetQueue.length >= this.maxQueueLength) {
       try {
         await this.insertTweets();
+        console.log("tweets inserted");
       } catch (err) {
-        console.log;
+        console.log(err);
       }
     }
   }
