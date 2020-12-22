@@ -62,7 +62,7 @@ const getSentimentScore = (text, lang) => {
       result = SentimentFrench(text);
       break;
     case "pt":
-      SentimentPortuguese(text);
+      result = SentimentPortuguese(text);
       break;
     case "sv":
       result = SentimentSwedish(text);
