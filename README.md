@@ -41,7 +41,7 @@ Client:
 
 ## Tweet Sentiment Analysis
 
-The sentiment analyzer currently supports: [English[(https://github.com/thisandagain/sentiment), Spanish, Italian, Turkish, Dutch, Polish, French, Portuguese, Swedish, and Emojis! 
+The sentiment analyzer currently supports: [English](https://www.npmjs.com/package/sentiment), [Spanish](https://www.npmjs.com/package/sentiment-spanish), [Italian](https://www.npmjs.com/package/natural), [Dutch](https://www.npmjs.com/package/natural), [Turkish](https://www.npmjs.com/package/sentiment-turkish), [Polish](https://www.npmjs.com/package/sentiment-polish), [French](https://www.npmjs.com/package/sentiment-french), [Portuguese](https://www.npmjs.com/package/sentiment-ptbr), [Swedish](https://www.npmjs.com/package/sentiment-swedish), and [Emojis](https://www.npmjs.com/package/wink-sentiment)! 
 I will be adding more libraries as I find them. 
 
 ```js
