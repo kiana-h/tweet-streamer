@@ -10,7 +10,6 @@ export default class BirdNest {
     this.avg_count = null;
     this.sentimentColorPicker = new SentimentColorPicker({ live: false });
     // this.toggleLoading = toggleLoading;
-
     this.setNests(nests);
   }
 
