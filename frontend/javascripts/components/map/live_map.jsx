@@ -22,8 +22,10 @@ class TweetLiveMap extends React.Component {
     });
   }
   componentWillUnmount() {
-    this.BirdManager.clear();
-    this.map.remove();
+    if (this.BirdManager) {
+      this.BirdManager.clear();
+      this.map.remove();
+    }
   }
 
   render() {
