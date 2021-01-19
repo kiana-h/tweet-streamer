@@ -34,7 +34,9 @@ router.get("/tweets/:dateTime", async (req, res, next) => {
       });
       res.json(aggregates.map((aggregate) => aggregate.get({ plain: true })));
     }
-  } catch (err) {}
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 /* GET home page. */
