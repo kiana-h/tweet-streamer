@@ -13,6 +13,24 @@ Live Website: [https://tweetstreamer.com](https://www.tweetstreamer.com/)
 3. **7 Day History Map:**
    The history map shows an hourly aggregate of the sample stream of tweets over the past week. The tweets have been aggregated based on their location.
 
+## Installation
+
+Note: you need to add your own Twitter API credentials (backend/data/twitter_stream.js) in order to connect to the Twitter API. 
+See [Twitter API](https://developer.twitter.com/en/docs/twitter-api) for info.
+
+
+```js
+//backend
+npm install
+npm start
+
+//frontend
+cd frontend
+npm install
+npm start
+```
+
+
 ## Live Tweet Map
 
 The tweets are retrieved from [Twitter API](https://developer.twitter.com/en/docs/twitter-api)'s sample stream and processed through [twit](https://github.com/ttezel/twit) library. Socket.io has been implemented to support the real-time flow of data from the server to clients. The map utilizes a queue to render up to 2000 tweets at a time and remove the old ones once it reaches capacity. A TweetManager class is designed for managing the tweet queue as well as rendering markers on the map.
@@ -20,10 +38,15 @@ The tweets are retrieved from [Twitter API](https://developer.twitter.com/en/doc
 Server:
 
 ```js
+// function to run for each tweet received from live stream
 stream.on("tweet", (tweet) => {
+  // format tweet to extract relevant columns
   const formattedTweet = tweetFormatter(tweet);
+  // if the tweet is not missing any required fields
   if (formattedTweet) {
+    // emit tweet through socket.io
     io.emit("tweet", formattedTweet);
+    //add tweet to queue that will be inserted in database
     dbTweetManager.addTweetToQueue(formattedTweet);
   }
 });
@@ -32,8 +55,10 @@ stream.on("tweet", (tweet) => {
 Client:
 
 ```js
+// listening for tweets on client side
 startListening = () => {
   this.socket.on("tweet", (tweet) => {
+    // renders tweet on the browser via Mapbox GL
     this.addTweet(tweet);
   });
 };
