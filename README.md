@@ -15,8 +15,8 @@ Live Website: [https://tweetstreamer.com](https://www.tweetstreamer.com/)
 
 ## Installation
 
-Note: you need to add your own Twitter API credentials (@ backend/data/twitter_stream.js) in order to connect to the Twitter API.   
-See [Twitter API](https://developer.twitter.com/en/docs/twitter-api) for info.
+Note: you need to [apply for a developer account](https://developer.twitter.com/en/apply-for-access) to get access to Twitter APIs. 
+Once you get your credentials you should add them here: backend/data/twitter_stream.js
 
 
 ```js
