@@ -66,6 +66,28 @@ startListening = () => {
 
 ![Live Tweet Map](https://github.com/kiana-h/twitt-stream-er/blob/main/readme_assets/live-map-.gif)
 
+## 7 Day History Map
+
+Tweets from the past week are saved on a PostgreSQL database. Tweets are added to a queue and bulk inserted at intervals to minimize the number of insertions. A cron job is executed every hour to delete tweets older than a week. Additionally, to enhance performance, an hourly, geospatial aggregate of the tweets is saved in a separate table. The location-based aggregation is achieved using the `ST_SnapToGrid` method from the PostGIS extension:
+
+```sql
+  SELECT
+    ST_SnapToGrid(location, 3) AS location,
+    date_trunc('hour', "createdAt") AS time,
+    AVG(sentiment) AS "sentimentScore",
+    COUNT("id") AS count
+  FROM tweets
+  WHERE
+    "createdAt" >= :dateTime::timestamptz AND "createdAt" < :dateTime::timestamptz + interval '1' hour
+  GROUP BY
+    date_trunc('hour', "createdAt"),
+    ST_SnapToGrid(location, 3)
+```
+
+The size of each point corresponds to the number of tweets at that location (as a percentage of all the tweets at that hour). The average sentiment score is translated into a color from a gradient, ranging from green(positive) to red(negative).
+
+![7 Day History Map](https://github.com/kiana-h/twitt-stream-er/blob/main/readme_assets/history-map.gif)
+
 ## Tweet Sentiment Analysis
 
 The sentiment analyzer currently supports: [English](https://www.npmjs.com/package/sentiment), [Spanish](https://www.npmjs.com/package/sentiment-spanish), [Italian](https://www.npmjs.com/package/natural), [Dutch](https://www.npmjs.com/package/natural), [Turkish](https://www.npmjs.com/package/sentiment-turkish), [Polish](https://www.npmjs.com/package/sentiment-polish), [French](https://www.npmjs.com/package/sentiment-french), [Portuguese](https://www.npmjs.com/package/sentiment-ptbr), [Swedish](https://www.npmjs.com/package/sentiment-swedish), and [Emojis](https://www.npmjs.com/package/wink-sentiment)!
@@ -116,27 +138,6 @@ const getSentimentScore = (text, lang) => {
 
 The score is then translated into a color on the live and history maps (green = positive - red = negative).
 
-## 7 Day History Map
-
-Tweets from the past week are saved on a PostgreSQL database. Tweets are added to a queue and bulk inserted at intervals to minimize the number of insertions. A cron job is executed every hour to delete tweets older than a week. Additionally, to enhance performance, an hourly, geospatial aggregate of the tweets is saved in a separate table. The location-based aggregation is achieved using the `ST_SnapToGrid` method from the PostGIS extension:
-
-```sql
-  SELECT
-    ST_SnapToGrid(location, 3) AS location,
-    date_trunc('hour', "createdAt") AS time,
-    AVG(sentiment) AS "sentimentScore",
-    COUNT("id") AS count
-  FROM tweets
-  WHERE
-    "createdAt" >= :dateTime::timestamptz AND "createdAt" < :dateTime::timestamptz + interval '1' hour
-  GROUP BY
-    date_trunc('hour', "createdAt"),
-    ST_SnapToGrid(location, 3)
-```
-
-The size of each point corresponds to the number of tweets at that location (as a percentage of all the tweets at that hour). The average sentiment score is translated into a color from a gradient, ranging from green(positive) to red(negative).
-
-![7 Day History Map](https://github.com/kiana-h/twitt-stream-er/blob/main/readme_assets/history-map.gif)
 
 ## Technologies
 
