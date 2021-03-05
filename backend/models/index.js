@@ -9,7 +9,9 @@ if (process.env.DATABASE_URL) {
     logging: null,
     ssl: true,
     dialectOptions: {
-      ssl: true,
+      ssl: {
+        rejectUnauthorized: false,
+      },
     },
   });
 } else {
