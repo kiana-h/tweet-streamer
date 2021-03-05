@@ -7,6 +7,10 @@ if (process.env.DATABASE_URL) {
     dialect: "postgres",
     protocol: "postgres",
     logging: null,
+    ssl: true,
+    dialectOptions: {
+      ssl: true,
+    },
   });
 } else {
   sequelize = new Sequelize("tweet_stream_er", "kiana", "172125kia", {
