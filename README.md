@@ -13,6 +13,24 @@ Live Website: [https://tweetstreamer.com](https://www.tweetstreamer.com/)
 3. **7 Day History Map:**
    The history map shows an hourly aggregate of the sample stream of tweets over the past week. The tweets have been aggregated based on their location.
 
+## Installation
+
+Note: you need to [apply for a developer account](https://developer.twitter.com/en/apply-for-access) to get access to Twitter APIs. 
+Once you get your credentials you should add them here: backend/data/twitter_stream.js
+
+
+```js
+//backend
+npm install
+npm start
+
+//frontend
+cd frontend
+npm install
+npm start
+```
+
+
 ## Live Tweet Map
 
 The tweets are retrieved from [Twitter API](https://developer.twitter.com/en/docs/twitter-api)'s sample stream and processed through [twit](https://github.com/ttezel/twit) library. Socket.io has been implemented to support the real-time flow of data from the server to clients. The map utilizes a queue to render up to 2000 tweets at a time and remove the old ones once it reaches capacity. A TweetManager class is designed for managing the tweet queue as well as rendering markers on the map.
@@ -20,10 +38,15 @@ The tweets are retrieved from [Twitter API](https://developer.twitter.com/en/doc
 Server:
 
 ```js
+// function to run for each tweet received from live stream
 stream.on("tweet", (tweet) => {
+  // format tweet to extract relevant columns
   const formattedTweet = tweetFormatter(tweet);
+  // if the tweet is not missing any required fields
   if (formattedTweet) {
+    // emit tweet through socket.io
     io.emit("tweet", formattedTweet);
+    //add tweet to queue that will be inserted in database
     dbTweetManager.addTweetToQueue(formattedTweet);
   }
 });
@@ -32,14 +55,38 @@ stream.on("tweet", (tweet) => {
 Client:
 
 ```js
+// listening for tweets on client side
 startListening = () => {
   this.socket.on("tweet", (tweet) => {
+    // renders tweet on the browser via Mapbox GL
     this.addTweet(tweet);
   });
 };
 ```
 
 ![Live Tweet Map](https://github.com/kiana-h/twitt-stream-er/blob/main/readme_assets/live-map-.gif)
+
+## 7 Day History Map
+
+Tweets from the past week are saved on a PostgreSQL database. Tweets are added to a queue and bulk inserted at intervals to minimize the number of insertions. A cron job is executed every hour to delete tweets older than a week. Additionally, to enhance performance, an hourly, geospatial aggregate of the tweets is saved in a separate table. The location-based aggregation is achieved using the `ST_SnapToGrid` method from the PostGIS extension:
+
+```sql
+  SELECT
+    ST_SnapToGrid(location, 3) AS location,
+    date_trunc('hour', "createdAt") AS time,
+    AVG(sentiment) AS "sentimentScore",
+    COUNT("id") AS count
+  FROM tweets
+  WHERE
+    "createdAt" >= :dateTime::timestamptz AND "createdAt" < :dateTime::timestamptz + interval '1' hour
+  GROUP BY
+    date_trunc('hour', "createdAt"),
+    ST_SnapToGrid(location, 3)
+```
+
+The size of each point corresponds to the number of tweets at that location (as a percentage of all the tweets at that hour). The average sentiment score is translated into a color from a gradient, ranging from green(positive) to red(negative).
+
+![7 Day History Map](https://github.com/kiana-h/twitt-stream-er/blob/main/readme_assets/history-map.gif)
 
 ## Tweet Sentiment Analysis
 
@@ -91,27 +138,6 @@ const getSentimentScore = (text, lang) => {
 
 The score is then translated into a color on the live and history maps (green = positive - red = negative).
 
-## 7 Day History Map
-
-Tweets from the past week are saved on a PostgreSQL database. Tweets are added to a queue and bulk inserted at intervals to minimize the number of insertions. A cron job is executed every hour to delete tweets older than a week. Additionally, to enhance performance, an hourly, geospatial aggregate of the tweets is saved in a separate table. The location-based aggregation is achieved using the `ST_SnapToGrid` method from the PostGIS extension:
-
-```sql
-  SELECT
-    ST_SnapToGrid(location, 3) AS location,
-    date_trunc('hour', "createdAt") AS time,
-    AVG(sentiment) AS "sentimentScore",
-    COUNT("id") AS count
-  FROM tweets
-  WHERE
-    "createdAt" >= :dateTime::timestamptz AND "createdAt" < :dateTime::timestamptz + interval '1' hour
-  GROUP BY
-    date_trunc('hour', "createdAt"),
-    ST_SnapToGrid(location, 3)
-```
-
-The size of each point corresponds to the number of tweets at that location (as a percentage of all the tweets at that hour). The average sentiment score is translated into a color from a gradient, ranging from green(positive) to red(negative).
-
-![7 Day History Map](https://github.com/kiana-h/twitt-stream-er/blob/main/readme_assets/history-map.gif)
 
 ## Technologies
 
