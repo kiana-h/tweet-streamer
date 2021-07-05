@@ -43,7 +43,7 @@ class TweetHistoryMap extends React.Component {
       zoom: 1.5,
       continuousWorld: false,
       noWrap: true,
-      interactive: false,
+      // interactive: false,
     });
     this.map.on("load", () => {
       this.getMarks();

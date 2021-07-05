@@ -15,7 +15,7 @@ class TweetLiveMap extends React.Component {
       zoom: 1.5,
       continuousWorld: false,
       noWrap: true,
-      interactive: false,
+      // interactive: false,
     });
     this.map.on("load", () => {
       this.BirdManager = new TweetBird(this.map);
