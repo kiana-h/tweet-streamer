@@ -2,8 +2,8 @@ const Sequelize = require("sequelize");
 const migrations = require("./migrations");
 
 let sequelize;
-if (process.env.DATABASE_URL) {
-  sequelize = new Sequelize(process.env.DATABASE_URL, {
+if (process.env.HEROKU_POSTGRESQL_CHARCOAL_URL) {
+  sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_CHARCOAL_URL, {
     dialect: "postgres",
     protocol: "postgres",
     logging: null,
