@@ -27,6 +27,7 @@ const attributes = {
 
 module.exports = {
   async up(queryInterface, sequelize, Sequelize) {
+    await sequelize.query("CREATE EXTENSION IF NOT EXISTS postgis");
     queryInterface.createTable("tweets", attributes);
   },
   async down(queryInterface, sequelize, Sequelize) {},
